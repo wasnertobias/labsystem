@@ -614,18 +614,25 @@ class LiElement extends Element{
     // button
       if ( $usr->isOfKind( IS_CORRECTOR ) ){
         // corrector:
-        if ( !$this->isClosed && !$isInCorrection ){ $ret .= "<input id=\"saveButton-".$this->idx.'-'.$this->getDataOfTeam."\" tabindex=\"".$pge->nextTab++."\" type=\"submit\" class=\"labsys_mop_i_save_button_warn\" ".
+        if (!$this->isClosed && !$isInCorrection) {
+        	// START correction (but warn corrector because question is not yet closed)
+        	$ret .= "<input id=\"saveButton-".$this->idx.'-'.$this->getDataOfTeam."\" tabindex=\"".$pge->nextTab++."\" type=\"button\" class=\"labsys_tw_save_button labsys_mop_i_save_button_warn\" ".
                                                                    "value=\"".$lng->get("correctThoughNotClosed")."\" onclick='isDirty=false;'>\n";
-                                }
-        elseif ( $isInCorrection ){ $ret .= '<input tabindex="'.$pge->nextTab++.'" type="submit" class="labsys_mop_i_save_button'.($this->isClosed?'':'_warn').'" '.
+        }
+        // TODO TW Remove dead code
+        /**else if ($isInCorrection) {
+	        // END correction (probably with warning)
+        	$ret .= '<input tabindex="'.$pge->nextTab++.'" type="submit" class="labsys_mop_i_save_button'.($this->isClosed?'':'_warn').'" '.
                                                    "value=\"".($this->isClosed?$lng->get("save"):$lng->get("correctThoughNotClosed"))."\" accesskey=\"s\" onclick='isDirty=false;'>\n".
                                             "<input tabindex=\"".$pge->nextTab++."\" type=\"submit\" class=\"labsys_mop_i_cancel_button\" ".
                                                    "value=\"".$lng->get("cancel")."\" name=\"cancel\">\n";
-                                   }
-        elseif ( !isset( $_POST['FULLADDRESS'] ) ){  $ret .= "<input id=\"saveButton-".$this->idx.'-'.$this->getDataOfTeam."\" tabindex=\"".$pge->nextTab++."\" type=\"submit\" class=\"labsys_mop_i_save_button\" ".
+        } **/else if (!isset( $_POST['FULLADDRESS'])) {
+	        // START correction (without warning)
+        	$ret .= "<input id=\"saveButton-".$this->idx.'-'.$this->getDataOfTeam."\" tabindex=\"".$pge->nextTab++."\" type=\"button\" class=\"labsys_tw_save_button labsys_mop_i_save_button\" ".
                                                                    "value=\"".$lng->get("correct")."\" onclick='isDirty=false;'>\n";
-                                                  }
-        else{ ; }// another is opened yet
+        } else {
+	        // another is opened yet
+        }
       } else {
         // user
         if ( $this->isClosed ){ ; }
